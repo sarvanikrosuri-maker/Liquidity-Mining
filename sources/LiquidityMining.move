@@ -3,23 +3,20 @@ module hrithvika_addr::LiquidityMining {
     use aptos_framework::coin;
     use aptos_framework::aptos_coin::AptosCoin;
 
-    /// Struct representing a liquidity mining pool with emission schedule
     struct LiquidityPool has store, key {
-        total_liquidity: u64,        // Total liquidity staked in pool
-        reward_rate: u64,            // Reward tokens per block
-        total_rewards: u64,          // Total rewards distributed
-        emission_blocks: u64,        // Number of blocks for emission
-        start_block: u64,            // Block when mining started
+        total_liquidity: u64,        
+        reward_rate: u64,            
+        total_rewards: u64,          
+        emission_blocks: u64,        
+        start_block: u64,            
     }
 
-    /// Struct to track individual user participation
     struct UserPosition has store, key {
-        liquidity_amount: u64,       // User's staked liquidity
-        rewards_earned: u64,         // Total rewards earned by user
-        last_claim_block: u64,       // Last block user claimed rewards
+        liquidity_amount: u64,       
+        rewards_earned: u64,         
+        last_claim_block: u64,       
     }
 
-    /// Function to create liquidity mining pool with emission schedule
     public fun create_mining_pool(
         creator: &signer, 
         reward_rate: u64,
@@ -35,7 +32,6 @@ module hrithvika_addr::LiquidityMining {
         move_to(creator, pool);
     }
 
-    /// Function for users to provide liquidity and earn rewards
     public fun provide_liquidity(
         user: &signer,
         pool_address: address,
@@ -44,7 +40,6 @@ module hrithvika_addr::LiquidityMining {
         let pool = borrow_global_mut<LiquidityPool>(pool_address);
         pool.total_liquidity = pool.total_liquidity + liquidity_amount;
         
-        // Calculate user rewards based on contribution
         let user_rewards = (liquidity_amount * pool.reward_rate) / 100;
         pool.total_rewards = pool.total_rewards + user_rewards;
 
@@ -55,4 +50,5 @@ module hrithvika_addr::LiquidityMining {
         };
         move_to(user, position);
     }
+
 }
