@@ -1,0 +1,16 @@
+[package]
+name = "LiquidityMining"
+version = "1.0.0"
+authors = []
+
+[addresses]
+hrithvika_addr = "b3f010ada6cbad3224644c8f9e943cca9262a9382c2de43199ca033427d77ca5"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
